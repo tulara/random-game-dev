@@ -14,9 +14,9 @@ function love.draw()
 end
 
 function love.keypressed(key)
-   if key == 'j' then
+   if key == 'k' then
       player.moveRight()
-   elseif key == 'k' then
+   elseif key == 'j' then
       player.moveLeft()
    end
 end

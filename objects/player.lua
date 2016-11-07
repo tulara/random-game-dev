@@ -9,6 +9,7 @@ local walkSide = {3,4,3,5}
 local spriteIndex = walkSide[1]
 local xScale = -1
 local position = {}
+local direction = 1
 
 local function center(x, y)
     return {x - 8, y - 8}
@@ -25,7 +26,7 @@ function player.init()
 end
 
 function player.draw()
-    love.graphics.draw(image, quads[spriteIndex], position[1], position[2], math.rad(180), 1, -1)
+    love.graphics.draw(image, quads[spriteIndex], position[1], position[2], math.rad(180), direction, -1)
 end
 
 function player.update()
@@ -40,11 +41,21 @@ function player.update()
 end
 
 function player.moveLeft()
-  position[1] = position[1] - 4
+  if direction == 1 then
+    position[1] = position[1] - 4
+  else
+    direction = 1
+    position[1] = position[1] + 12
+  end
 end
 
 function player.moveRight()
-  position[1] = position[1] + 4
+  if direction == -1 then
+      position[1] = position[1] + 4
+  else
+    direction = -1
+    position[1] = position[1] - 12
+  end
 end
 
 return player
