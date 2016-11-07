@@ -14,13 +14,13 @@ function love.draw()
 end
 
 function love.keypressed(key)
-   if key == 'k' then
+   if key == 'right' then
       player.moveRight()
-   elseif key == 'j' then
+   elseif key == 'left' then
       player.moveLeft()
-   elseif key == 'm' then
+   elseif key == 'down' then
      player.moveDown()
-   elseif key == 'i' then
+   elseif key == 'up' then
      player.moveUp()
    end
 end
