@@ -26,8 +26,6 @@ function player.init()
     quads[6] = love.graphics.newQuad(0, 32, 16, 16, 64, 64)
     quads[7] = love.graphics.newQuad(16, 32, 16, 16, 64, 64)
     position = center(64, 64)
-
-
 end
 
 function player.draw()
@@ -44,21 +42,11 @@ local walkSideways = function ()
   end
 end
 
-local bopUp = function()
+local bop = function(startIndex)
   if ticks % animationSpeed == 0 then
     quadIndex = quadIndex + 1
-    if quadIndex > 7 then
-      quadIndex = 6
-    end
-    spriteIndex = quadIndex
-  end
-end
-
-local bopDown = function()
-  if ticks % animationSpeed == 0 then
-    quadIndex = quadIndex + 1
-    if quadIndex > 2 then
-      quadIndex = 1
+    if quadIndex > startIndex + 1 then
+      quadIndex = startIndex
     end
     spriteIndex = quadIndex
   end
@@ -69,9 +57,9 @@ function player.update()
     if facing == "left" or facing == "right" then
       walkSideways()
     elseif facing == "down" then
-      bopDown()
+      bop(1)
     else
-      bopUp()
+      bop(6)
     end
 end
 
@@ -80,6 +68,7 @@ function player.moveDown()
     position[2] = position[2] + 4
   else
     facing = "down"
+    quadIndex = 1
   end
 end
 
@@ -88,6 +77,7 @@ function player.moveUp()
     position[2] = position[2] - 4
   else
     facing = "up"
+    quadIndex = 6
   end
 end
 
@@ -95,6 +85,10 @@ function player.moveLeft()
   if facing == "left" then
     position[1] = position[1] - 4
   else
+    if xdirection == -1 then
+      position[1] = position[1] + 16
+      xdirection = 1
+    end
     xdirection = 1
     facing = "left"
   end
@@ -104,9 +98,11 @@ function player.moveRight()
   if facing == "right" then
       position[1] = position[1] + 4
   else
-    xdirection = -1
+    if xdirection == 1 then
+      position[1] = position[1] - 16
+      xdirection = -1
+    end
     facing = "right"
-    position[1] = position[1] - 12
   end
 end
 
