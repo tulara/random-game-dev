@@ -8,6 +8,7 @@ local animationSpeed = 10
 local walkSide = {3,4,3,5}
 local spriteIndex = walkSide[1]
 local xScale = -1
+local position = {}
 
 local function center(x, y)
     return {x - 8, y - 8}
@@ -20,11 +21,11 @@ function player.init()
     quads[3] = love.graphics.newQuad(0, 16, 16, 16, 64, 64)
     quads[4] = love.graphics.newQuad(16, 16, 16, 16, 64, 64)
     quads[5] = love.graphics.newQuad(32, 16, 16, 16, 64, 64)
+    position = center(64, 64)
 end
 
 function player.draw()
-    p = center(64, 64)
-    love.graphics.draw(image, quads[spriteIndex], p[1], p[2], math.rad(180), 1, -1)
+    love.graphics.draw(image, quads[spriteIndex], position[1], position[2], math.rad(180), 1, -1)
 end
 
 function player.update()
@@ -38,5 +39,12 @@ function player.update()
     end
 end
 
-return player
+function player.moveLeft()
+  position[1] = position[1] - 4
+end
 
+function player.moveRight()
+  position[1] = position[1] + 4
+end
+
+return player
