@@ -18,6 +18,10 @@ function love.keypressed(key)
       player.moveRight()
    elseif key == 'j' then
       player.moveLeft()
+   elseif key == 'm' then
+     player.moveDown()
+   elseif key == 'i' then
+     player.moveUp()
    end
 end
 
